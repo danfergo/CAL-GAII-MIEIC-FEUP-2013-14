@@ -7,12 +7,18 @@
 
 #include "Email.h"
 
-Email::Email() {
-	// TODO Auto-generated constructor stub
-
-}
+Email::Email(std::string ti, std::string te, unsigned long d):title(ti), text(te),date(d) {}
 
 Email::~Email() {
 	// TODO Auto-generated destructor stub
 }
 
+bool Email::addLabel(Label label){
+
+}
+bool Email::getLabel(Label label){
+
+}
+bool Email::clearLabel(Label label){
+
+}
