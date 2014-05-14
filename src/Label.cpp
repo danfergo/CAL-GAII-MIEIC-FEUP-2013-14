@@ -39,3 +39,17 @@ bool Label::replaceKey(std::string k, std::string nkt){
 void Label::setTitle(std::string t):title(t) {
 };
 
+std::string Label::getTitle() const{
+	return title;
+};
+
+bool Label::operator==(const Label & l) const{
+	return l.title == title;
+}
+
+static std::vector<Label> Label::importLabelsFile(std::string filename) throw(FileNotFound){
+
+};
+static void Label::exportLabelsFile(std::string filename) throw(FileNotFound){
+
+};
