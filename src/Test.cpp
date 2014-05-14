@@ -4,7 +4,7 @@
 
 void thisIsATest() {
 	ASSERTM("start writing tests", false);	
-}//a
+}
 
 void runSuite(){
 	cute::suite s;

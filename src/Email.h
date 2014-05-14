@@ -12,6 +12,6 @@ class Email {
 public:
 	Email();
 	virtual ~Email();
-};//a
+};
 
 #endif /* EMAIL_H_ */
