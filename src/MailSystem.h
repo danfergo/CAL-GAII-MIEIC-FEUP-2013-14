@@ -11,6 +11,7 @@
 #include "Email.h"
 #include "Label.h"
 
+
 #include <vector>
 #include <string>
 
@@ -26,11 +27,11 @@ public:
 	bool ImportEmailsFolder(std::string folderpath);
 
 	bool addLabel(std::string label);
-	std::vector<Label> getLabelList() const;
+	std::vector<Label> & getLabels();
 
 	Label * getLabel(std::string);
 
-	std::vector<Email> getEmailList() const;
+	std::vector<Email> & getEmails();
 
 	void clearLabels();
 	void clearEmails();

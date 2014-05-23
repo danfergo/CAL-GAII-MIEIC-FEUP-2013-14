@@ -29,11 +29,12 @@ public:
 	bool replaceKey(std::string key, std::string newkeytitle);
 	void setTitle(std::string title);
 	std::string getTitle() const;
+	std::vector<std::string> getKeys() const;
 
 	bool operator==(const Label & l) const;
 
 	static std::vector<Label> importLabelsFile(std::string filename) throw(FileNotFound);
-	static void exportLabelsFile(std::string filename) throw(FileNotFound);
+	static bool exportLabelsFile(std::string filename, std::vector<Label> labels);
 };
 
 #endif /* LABEL_H_ */
