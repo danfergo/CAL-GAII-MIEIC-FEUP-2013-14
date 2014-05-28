@@ -21,12 +21,10 @@ void test_import_labels() {
 void text_export_labels(){
 	std::vector<Label> labels = Label::importLabelsFile("labels.txt");
 	Label::exportLabelsFile("labelsoutput.txt",labels);
-
 }
 
 void runSuite(){
 	cute::suite s;
-	//TODO add your test here
 	s.push_back(CUTE(test_import_labels));
 	s.push_back(CUTE(text_export_labels));
 
