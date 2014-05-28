@@ -24,11 +24,11 @@ public:
 	Label* getLabel(Label* label);
 	bool clearLabel(Label* label);
 	static std::vector<Email> importEmailsFolder(std::string dirname);
-	Email Email::addDataFromFile(std::string filename);
+	Email addDataFromFile(std::string filename);
 private:
 	std::string title;
 	std::string text;
-	unsigned long date;
+	std::string date;
 	std::vector<Label *> labels;
 	std::vector<Label *>::iterator findLabel(Label* label);
 };

@@ -38,21 +38,23 @@ bool Email::clearLabel(Label* label){
 	return true;
 }
 
-static std::vector<Email> Email::importEmailsFolder(std::string dirname){
+std::vector<Email> Email::importEmailsFolder(std::string dirname){
 	std::vector<Email> res;
 	std::string filename;
 	DIR *dir;
+	Email email("","","");
 	struct dirent *ent;
 	if ((dir = opendir (dirname.c_str())) != NULL) {
 		while ((ent = readdir (dir)) != NULL) {
 			//std::cout <<"%s\n" << ent->d_name;
 			filename = dirname + "\\" + ent->d_name;
-			Email email = addDataFromFile(filename);
+			email.addDataFromFile(filename);
 			res.push_back(email);
 		}
 		closedir (dir);
 	}
-	throw FileNotFound();
+	else throw FileNotFound();
+	return res;
 }
 
 Email Email::addDataFromFile(std::string filename) {
@@ -63,11 +65,11 @@ Email Email::addDataFromFile(std::string filename) {
 
 	if (myfile.is_open()) {
 		while (getline(myfile, line)) {
-			if (line.substr(0, 5) == "Title") {
+			if (line.substr(0, 7) == "-Title-") {
 				state = 1;
-			} else if (line.substr(0, 4) == "Date") {
+			} else if (line.substr(0, 6) == "-Date-") {
 				state = 2;
-			} else if (line.substr(0, 4) == "Text") {
+			} else if (line.substr(0, 6) == "-Text-") {
 				state = 3;
 			} else {
 				switch(state){
