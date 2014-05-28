@@ -7,7 +7,20 @@
 
 #include "Email.h"
 
-Email::Email(std::string title, std::string text, std::string date):title(title), text(text),date(date) {}
+Email::Email(std::string title, std::string text, std::string date):title(title), text(text),date(date) {
+	nWords = 0;
+	bool word = true;
+	for(int i = 0;i<text.size();i++){
+		if(isalnum(text[i]))
+			word = true;
+		else if(word == false)
+			continue;
+		else {
+			word = false;
+			nWords++;
+		}
+	}
+}
 
 Email::~Email() {
 	// TODO Auto-generated destructor stuba
@@ -28,14 +41,24 @@ bool Email::addLabel(Label* label){
 	labels.push_back(label);
 	return true;
 }
+
 Label* Email::getLabel(Label* label){
 	std::vector<Label *>::iterator it = findLabel(label);
 	if (**it == *label) return label;
 	return *it;
 }
+
 bool Email::clearLabel(Label* label){
 	labels.clear();
 	return true;
+}
+
+std::string Email::getText() const{
+	return text;
+}
+
+unsigned int Email::getNWords() const{
+	return nWords;
 }
 
 std::vector<Email> Email::importEmailsFolder(std::string dirname){

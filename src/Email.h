@@ -14,7 +14,7 @@
 #include <fstream>
 #include <iostream>
 #include <cstring>
-
+#include <cctype>
 class Email {
 public:
 
@@ -23,12 +23,15 @@ public:
 	bool addLabel(Label* label);
 	Label* getLabel(Label* label);
 	bool clearLabel(Label* label);
+	std::string getText() const;
+	unsigned int getNWords() const;
 	static std::vector<Email> importEmailsFolder(std::string dirname);
 	Email addDataFromFile(std::string filename);
 private:
 	std::string title;
 	std::string text;
 	std::string date;
+	unsigned int nWords;
 	std::vector<Label *> labels;
 	std::vector<Label *>::iterator findLabel(Label* label);
 };
