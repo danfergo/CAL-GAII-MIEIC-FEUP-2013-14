@@ -7,14 +7,21 @@
 
 #ifndef EMAIL_H_
 #define EMAIL_H_
-#include <dirent.h>
+
+
 #include "Label.h"
+
+
 #include <string>
 #include <vector>
 #include <fstream>
 #include <iostream>
 #include <cstring>
 #include <cctype>
+#include <dirent.h>
+
+
+
 class Email {
 public:
 

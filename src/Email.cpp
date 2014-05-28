@@ -10,8 +10,8 @@
 Email::Email(std::string title, std::string text, std::string date):title(title), text(text),date(date) {
 	nWords = 0;
 	bool word = true;
-	for(int i = 0;i<text.size();i++){
-		if(isalnum(text[i]))
+	for(int i = 0; i< text.size(); i++){
+		if(isalnum(text[i]) || (text[i] > 128 && text[i] < 154))
 			word = true;
 		else if(word == false)
 			continue;
