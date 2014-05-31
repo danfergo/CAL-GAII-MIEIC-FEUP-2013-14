@@ -32,6 +32,7 @@ public:
 	bool clearLabel(Label* label);
 	std::string getText() const;
 	unsigned int getNWords() const;
+	std::string getDate() const;
 	static std::vector<Email> importEmailsFolder(std::string dirname);
 	Email addDataFromFile(std::string filename);
 private:

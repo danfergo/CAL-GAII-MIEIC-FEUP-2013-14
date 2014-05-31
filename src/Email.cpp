@@ -61,6 +61,10 @@ unsigned int Email::getNWords() const{
 	return nWords;
 }
 
+std::string Email::getDate() const{
+	return date;
+}
+
 std::vector<Email> Email::importEmailsFolder(std::string dirname){
 	std::vector<Email> res;
 	std::string filename;
