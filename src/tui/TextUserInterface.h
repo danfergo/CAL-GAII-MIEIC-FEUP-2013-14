@@ -41,7 +41,7 @@ public:
 
 	enum TextAlignment {LEFT, CENTER, RIGHT, JUSTIFY};
 
-	TextUserInterface(std::string Header = "", unsigned InterfaceWidth = 70, unsigned InterfaceHeight = 15);
+	TextUserInterface(std::string Header = "", unsigned InterfaceWidth = 74, unsigned InterfaceHeight = 15);
 	void setHeader(std::string header);
 	void setWidth(unsigned width);
 	void setHeight(unsigned width);

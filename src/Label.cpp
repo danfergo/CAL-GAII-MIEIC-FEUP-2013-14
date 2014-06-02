@@ -24,12 +24,8 @@ bool Label::addKey(std::string k) {
 	return true;
 }
 
-bool Label::deleteKey(std::string k) {
-	std::vector<std::string>::iterator it = find(keywords.begin(),
-			keywords.end(), k);
-	if (it != keywords.end())
-		return false;
-	keywords.erase(it);
+bool Label::deleteKey(unsigned i) {
+	keywords.erase(keywords.begin()+i);
 	return true;
 }
 bool Label::replaceKey(std::string k, std::string nkt) {

@@ -25,7 +25,7 @@ private:
 public:
 	Label(std::string title);
 	bool addKey(std::string key);
-	bool deleteKey(std::string key);
+	bool deleteKey(unsigned i);
 	bool replaceKey(std::string key, std::string newkeytitle);
 	void setTitle(std::string title);
 	std::string getTitle() const;
