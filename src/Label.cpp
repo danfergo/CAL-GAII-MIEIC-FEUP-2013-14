@@ -103,7 +103,6 @@ bool Label::exportLabelsFile(std::string filename, std::vector<Label> labels) {
 	} else {
 		throw FileNotFound();
 	}
-	return true;
 }
 
 std::vector<std::string> Label::getKeys() const {

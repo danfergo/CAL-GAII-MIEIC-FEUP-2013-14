@@ -27,21 +27,21 @@ public:
 
 	Email(std::string title, std::string text, std::string date);
 	virtual ~Email();
-	bool addLabel(Label* label);
-	Label* getLabel(Label* label);
-	bool clearLabel(Label* label);
+	bool setLabel(Label* label);
+	Label* getLabel();
+	bool clearLabel();
 	std::string getText() const;
 	unsigned int getNWords() const;
 	std::string getDate() const;
 	static std::vector<Email> importEmailsFolder(std::string dirname);
 	Email addDataFromFile(std::string filename);
-private:
 	std::string title;
 	std::string text;
 	std::string date;
+private:
 	unsigned int nWords;
-	std::vector<Label *> labels;
-	std::vector<Label *>::iterator findLabel(Label* label);
+	Label * label;
+	// std::vector<Label *>::iterator findLabel(Label* label);
 };
 
 

@@ -17,16 +17,15 @@
 
 class MailSystem {
 private:
-	typedef struct LabelEmail {
-		  bool operator < (const LabelEmail & le2);
-		  Email * email;
+	typedef struct LabeRelativeFreq{
+		  bool operator < (const LabeRelativeFreq & le2) const;
 		  Label * label;
 		  float freq;
 	} LabelEmail;
 
 	std::vector<Label> labels;
 	std::vector<Email> emails;
-	unsigned searchTolerance;
+	float searchTolerance;
 public:
 	MailSystem();
 
@@ -42,11 +41,20 @@ public:
 	std::vector<Email> & getEmails();
 
 	float calculateRelativeFrequency(const Label & label,const Email & email) const;
-	void assingLabelToEmail(Email & email, unsigned k);
+	void assingLabelToEmail(Email & email);
+	void assingLabelsToEmails();
 
 	void clearLabels();
 	void clearEmails();
 	void clearAll();
+
+	float getSearchTolerance() const{
+		return searchTolerance;
+	}
+
+	float setSearchTolerance(float st){
+		searchTolerance = st;
+	}
 
 };
 

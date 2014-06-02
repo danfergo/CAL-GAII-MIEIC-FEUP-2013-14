@@ -8,8 +8,11 @@
 #include "MailSystem.h"
 #include <algorithm>    // std::find
 #include <sstream>
+#include "matcher.h"
 
-MailSystem::MailSystem(){};
+MailSystem::MailSystem(){
+	searchTolerance = 0;
+};
 
 bool MailSystem::ImportLabelsFile(std::string filename){
 	std::vector<Label > v;
@@ -26,7 +29,14 @@ bool MailSystem::ExportLabelsFile(std::string filename){
 }
 
 bool MailSystem::ImportEmailsFolder(std::string folderpath){
-	return false;
+	std::vector<Email> e;
+	try{
+		e = Email::importEmailsFolder(folderpath);
+		emails.insert(emails.end(), e.begin(), e.end());
+		return true;
+	}catch(FileNotFound & e){
+		return false;
+	}
 }
 
 bool MailSystem::addLabel(std::string label){
@@ -55,48 +65,49 @@ void MailSystem::clearAll(){
 	clearLabels();clearEmails();
 }
 
-bool MailSystem::LabelEmail::operator < (const LabelEmail &le2){
-	return freq > le2;
+bool MailSystem::LabeRelativeFreq::operator < (const LabeRelativeFreq &le2) const{
+	return freq > le2.freq;
 }
 
-void MailSystem::assingLabelToEmail(Email & email,unsigned k){
-	if(labels.size == 0) return;
+void MailSystem::assingLabelToEmail(Email & email){
+	email.clearLabel();
+
+	if(labels.size() == 0) return;
 
 	std::vector<LabelEmail> relativefreq;
 	for(unsigned i = 0 ; i < labels.size(); i++){
-		relativefreq.push_back({k,labels[i],0});
+		LabelEmail le = {&labels[i],0};
+		relativefreq.push_back(le);
 		relativefreq[i].freq = calculateRelativeFrequency(labels[i],email);
 	}
 
-
 	if(labels.size() == 1){
-		if(relativefreq[0].freq > searchTolerance); //???
-		//email.setLabel(relativefreq[0].email);
+		if(relativefreq[0].freq > searchTolerance)
+			email.setLabel(relativefreq[0].label);
 	}else{
 		std::sort (relativefreq.begin(), relativefreq.end());
-		if(relativefreq[1].freq/relativefreq[0].freq > searchTolerance){ //???
-			//email.setLabel(relativefreq[0].email);
-		}
+		if(relativefreq[0].freq - relativefreq[1].freq > searchTolerance)
+			email.setLabel(relativefreq[0].label);
+	}
+}
+
+
+void MailSystem::assingLabelsToEmails(){
+	for(std::vector<Email>::iterator it = emails.begin(); it != emails.end(); it++){
+		assingLabelToEmail(*it);
 	}
 }
 
 
 float MailSystem::calculateRelativeFrequency(const Label & label,const Email & email) const{
-	float wordCounter=0, matchesCounter=0;
-	std::string word, bigger, smaller;
-	std::stringstream wordsStream/* = email.getWordStream()*/;
-	while(getline(wordsStream, word, ' ')){
+	float x = 0;
+	std::vector<std::string> gkeys = label.getKeys();
 
-		for(std::vector<std::string>::iterator it = label.getKeys().begin(); it != label.getKeys().end();it++){
-			bigger = word.size() >= (*it).size() ? word : (*it);
-			smaller = bigger == word ? (*it) : word;
-			if(bigger.substr(0,smaller.size()) == smaller){
-				matchesCounter++;
-			}
-		}
-		wordCounter++;
+	for(std::vector<std::string>::const_iterator it = gkeys.begin(); it != gkeys.end();it++){
+		x += numStringMatchingText(email.text,*it);
 	}
-	return (matchesCounter/wordCounter);
+	unsigned y = email.getNWords();
+	return y == 0 ? 0 : x/(float)y;
 }
 
 

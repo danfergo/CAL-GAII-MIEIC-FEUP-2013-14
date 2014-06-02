@@ -7,7 +7,7 @@
 
 #include "Email.h"
 
-Email::Email(std::string title, std::string text, std::string date):title(title), text(text),date(date) {
+Email::Email(std::string title, std::string text, std::string date):label(NULL),title(title), text(text),date(date) {
 	nWords = 0;
 	bool word = true;
 	for(int i = 0; i< text.size(); i++){
@@ -25,7 +25,7 @@ Email::Email(std::string title, std::string text, std::string date):title(title)
 Email::~Email() {
 	// TODO Auto-generated destructor stuba
 }
-
+/*
 std::vector<Label *>::iterator Email::findLabel(Label* label){
 	std::vector<Label *>::iterator it = labels.begin();
 	std::vector<Label *>::iterator ite = labels.end();
@@ -33,23 +33,25 @@ std::vector<Label *>::iterator Email::findLabel(Label* label){
 		if(*(*it) == *label) return it;
 	}
 	return ite;
+}*/
+
+bool Email::setLabel(Label* label){
+	//std::vector<Label *>::iterator it = findLabel(label);
+	//if (**it == *label) return false;
+	//labels.push_back(label);
+	//return true;
+	this->label = label;
 }
 
-bool Email::addLabel(Label* label){
-	std::vector<Label *>::iterator it = findLabel(label);
-	if (**it == *label) return false;
-	labels.push_back(label);
-	return true;
+Label * Email::getLabel(){
+	//std::vector<Label *>::iterator it = findLabel(label);
+	//if (**it == *label) return label;
+	//return *it;
+	return label;
 }
 
-Label* Email::getLabel(Label* label){
-	std::vector<Label *>::iterator it = findLabel(label);
-	if (**it == *label) return label;
-	return *it;
-}
-
-bool Email::clearLabel(Label* label){
-	labels.clear();
+bool Email::clearLabel(){
+	label = NULL;
 	return true;
 }
 
@@ -71,12 +73,17 @@ std::vector<Email> Email::importEmailsFolder(std::string dirname){
 	DIR *dir;
 	Email email("","","");
 	struct dirent *ent;
+	unsigned x;
+	std::string fname;
 	if ((dir = opendir (dirname.c_str())) != NULL) {
 		while ((ent = readdir (dir)) != NULL) {
-			//std::cout <<"%s\n" << ent->d_name;
-			filename = dirname + "\\" + ent->d_name;
-			email.addDataFromFile(filename);
-			res.push_back(email);
+			fname = ent->d_name;
+			x = (((int)fname.size()-4) < 0) ? 0 : (fname.size()-4);
+			if(fname.substr(x) == ".txt"){
+				filename = dirname + "\\" + ent->d_name;
+				res.push_back(email.addDataFromFile(filename));
+			}
+
 		}
 		closedir (dir);
 	}
@@ -115,6 +122,7 @@ Email Email::addDataFromFile(std::string filename) {
 		}
 		myfile.close();
 	}
+	std::cout << title << "|" << date << "|" << text;
 	Email email(title,text,date);
 	return email;
 }
