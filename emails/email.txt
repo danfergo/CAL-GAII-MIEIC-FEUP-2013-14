@@ -1,0 +1,10 @@
+-Title-
+Titulo do e-mail
+-Date-
+dd-mm-aa hh:mm:ss
+-Text-
+Um email um email Um email um email 
+Um email um email 
+Um email um email 
+Um email um email 
+Um email um email
