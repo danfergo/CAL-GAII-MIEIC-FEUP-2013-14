@@ -7,7 +7,7 @@
 
 #include "Email.h"
 
-Email::Email(std::string title, std::string text, std::string date):label(NULL),title(title), text(text),date(date) {
+Email::Email(std::string title, std::string text, std::string date):title(title), text(text),date(date),label(NULL) {
 	nWords = 0;
 	bool word = true;
 	for(int i = 0; i< text.size(); i++){
@@ -25,34 +25,17 @@ Email::Email(std::string title, std::string text, std::string date):label(NULL),
 Email::~Email() {
 	// TODO Auto-generated destructor stuba
 }
-/*
-std::vector<Label *>::iterator Email::findLabel(Label* label){
-	std::vector<Label *>::iterator it = labels.begin();
-	std::vector<Label *>::iterator ite = labels.end();
-	for (;it!=ite;it++){
-		if(*(*it) == *label) return it;
-	}
-	return ite;
-}*/
 
-bool Email::setLabel(Label* label){
-	//std::vector<Label *>::iterator it = findLabel(label);
-	//if (**it == *label) return false;
-	//labels.push_back(label);
-	//return true;
+void Email::setLabel(Label* label){
 	this->label = label;
 }
 
 Label * Email::getLabel(){
-	//std::vector<Label *>::iterator it = findLabel(label);
-	//if (**it == *label) return label;
-	//return *it;
 	return label;
 }
 
-bool Email::clearLabel(){
+void Email::clearLabel(){
 	label = NULL;
-	return true;
 }
 
 std::string Email::getText() const{

@@ -281,8 +281,8 @@ int main(){
 			 "                                                        __/ |          \n"
 			 "                                                       |___/           \n"
 			"\n\n"
-			"Hi! Welcome to the Mail Manager.\n",TextUserInterface::CENTER);
-	tui->setHeader("E-mail manager");
+			"Hi! Welcome to the Email Manager.\n",TextUserInterface::CENTER);
+	tui->setHeader("Email Manager");
 	mainMenu();
 	tui->setHeader("");
 	tui->printEnd("\n\n\n\n\nGoodbye!\n\nI hope to see you soon.",TextUserInterface::CENTER);

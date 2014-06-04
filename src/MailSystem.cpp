@@ -25,7 +25,12 @@ bool MailSystem::ImportLabelsFile(std::string filename){
 	}
 }
 bool MailSystem::ExportLabelsFile(std::string filename){
-	return Label::exportLabelsFile(filename,labels);
+	try{
+		Label::exportLabelsFile(filename,labels);
+		return true;
+	}catch(FileNotFound & e){
+		return false;
+	}
 }
 
 bool MailSystem::ImportEmailsFolder(std::string folderpath){

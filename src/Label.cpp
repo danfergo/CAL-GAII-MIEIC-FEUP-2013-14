@@ -24,18 +24,10 @@ bool Label::addKey(std::string k) {
 	return true;
 }
 
-bool Label::deleteKey(unsigned i) {
+void Label::deleteKey(unsigned i) {
 	keywords.erase(keywords.begin()+i);
-	return true;
 }
-bool Label::replaceKey(std::string k, std::string nkt) {
-	std::vector<std::string>::iterator it = find(keywords.begin(),
-			keywords.end(), k);
-	if (it != keywords.end())
-		return false;
-	keywords.erase(it);
-	return addKey(nkt);
-}
+
 
 void Label::setTitle(std::string t) {
 	title = t;
@@ -81,7 +73,7 @@ std::vector<Label> Label::importLabelsFile(std::string filename)
 	return retlabels;
 }
 
-bool Label::exportLabelsFile(std::string filename, std::vector<Label> labels) {
+void Label::exportLabelsFile(std::string filename, std::vector<Label> labels) throw(FileNotFound){
 	std::ofstream myfile(filename.c_str());
 	if (myfile.is_open()) {
 		std::vector<std::string> keys;
